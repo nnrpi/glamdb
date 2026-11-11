@@ -187,3 +187,27 @@ test('local admission rejection allows a smaller corrected append', async ({ pag
         .click();
     await expect(page.getByText('Append committed', { exact: true })).toBeVisible();
 });
+
+test('public write form generates typed JSON without opening the batch editor', async ({
+    page,
+}) => {
+    await open(page);
+    await page.getByRole('button', { name: 'New collection', exact: true }).click();
+    await page.getByLabel('Collection name').fill('public_form');
+    await page.getByRole('button', { name: 'Create collection', exact: true }).click();
+    await expect(page.getByRole('dialog')).not.toBeVisible();
+    await nav(page, 'Data studio');
+    const write = page.locator('#write-form');
+    await expect(page.locator('#query-form')).toBeVisible();
+    await write.getByLabel('key row 1', { exact: true }).fill('public-form');
+    await write.getByLabel('label row 1', { exact: true }).fill('Made with fields');
+    await write.getByLabel('amount row 1 NULL', { exact: true }).uncheck();
+    await write.getByLabel('amount row 1', { exact: true }).fill('9223372036854775807');
+    await write.getByRole('button', { name: 'Append rows', exact: true }).click();
+    await expect(write.getByText('Append committed', { exact: true })).toBeVisible();
+    await page.locator('#run-query').click();
+    await expect(page.getByRole('table', { name: 'Query results' })).toContainText(
+        '9223372036854775807',
+    );
+    await expect(page.getByRole('dialog')).not.toBeVisible();
+});

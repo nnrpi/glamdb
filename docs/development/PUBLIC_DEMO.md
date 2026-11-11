@@ -2,11 +2,12 @@
 
 Published URL: **https://nnrpi.github.io/glamdb/**. Public HTTPS access is enabled
 on the fork; Pages source is `gh-pages`, path `/`. Anonymous HTTPS, both logo
-checksums and all five public Chromium scenarios passed against this live URL.
-Published artifact commit: `5983b3cd24b7b43e1f2decc38de3f9053cd4540d`, built from
-source commit `8a4489638294f4c8969787354d2aab36d2b600fe` (review corrections).
-The published index, app/API/model modules and both logos match the tested
-package byte-for-byte. All five external browser scenarios passed again.
+checksums and all six public Chromium scenarios passed against this live URL,
+including field-based writes, exact int64 values, reads and mobile layout.
+Published artifact commit: `c896b5c962cfebbb782e10bbf791894a1aa6678c`, built from
+source commit `bc6bf11f4926ef7d8e807e614c160257eeae3205`.
+The published index, app/API/model/editor/demo modules, CSS, theme and both logos
+match the tested package byte-for-byte.
 
 This mode publishes the same pink workbench as static HTML/CSS/ES modules on
 GitHub Pages. A visitor needs only a browser. There is no token prompt, shared
@@ -77,7 +78,7 @@ only their own page instances, never shared remote data.
 ## Publish
 
 Publish generated assets only to **nnrpi/glamdb:gh-pages**, keeping application
-source on the development branch and upstream PR #4. Configure the fork's Pages
+source on the development branch and its upstream pull request. Configure the fork's Pages
 source to gh-pages, path /. Never create deployment branches in glamourdb/glamdb.
 Use the existing SSH push access; the HTTPS OAuth token lacks workflow scope.
 No new privileged workflow or release secret is needed.

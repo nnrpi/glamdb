@@ -1093,7 +1093,8 @@ async function appendForm(form) {
             saveOutcome(operation, { outcome: 'transport_unknown' });
             showAppendOutcome(operation, { outcome: 'commit_unknown', recovery_required: true });
             button.textContent = 'Retry same operation';
-            form.elements.rows.readOnly = true;
+            if (form.elements.rows) form.elements.rows.readOnly = true;
+            else lockWriteForm(form);
         }
         if (form.isConnected)
             form.querySelector('#modal-error, #write-error').textContent = error.message;
